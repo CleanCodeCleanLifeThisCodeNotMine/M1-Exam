@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<style>
+  h2
+  {
+    text-align: center;
+  }
+  table {
+    table {
+      width:100%;
+      /*margin-left: auto;*/
+      /*margin-right: auto;*/
+      margin: auto;
+    }
+    table, th, td {
+      border: 0px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background-color: #eee;
+    }
+    tr:nth-child(odd) {
+      background-color:#fff;
+    }
+    th {
+      background-color: black;
+      color: white;
+    }
+  }
+</style>
+<body>
+<h2>Quan li cong nhan</h2>
+<br>
+<table style="margin: auto" id="danhsach">
+  <tr>
+    <th>STT</th>
+    <th>Ho va Ten</th>
+    <th>Ngay sinh</th>
+    <th>Dia chi</th>
+    <th>Luong</th>
+    <th>Chuc vu</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Truong Tan A</td>
+    <td>11-11-1997</td>
+    <td>Quang Nam</td>
+    <td>2000</td>
+    <td>Abc</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Truong Tan B</td>
+    <td>11-11-1998</td>
+    <td>Da Nang</td>
+    <td>2000</td>
+    <td>Abc</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Truong Tan C</td>
+    <td>11-11-1999</td>
+    <td>Hue</td>
+    <td>2000</td>
+    <td>Abc</td>
+  </tr>
+  <tbody>
+
+  </tbody>
+</table>
+
+<h3>Them cong nhan</h3>
+<div>
+  <input type="text" id="name" placeholder="Ho va Ten">
+  <input type="text" id="birthd" placeholder="Ngay sinh: DD/MM/yyyy">
+  <input type="text" id="address" placeholder="Dia chi">
+  <input type="number" id="salary" placeholder="Luong">
+  <input type="text" id="position" placeholder="Chuc vu"><br>
+  <button onclick="addCongnhan()">Add</button>
+</div>
+
+<script>
+  function addCongnhan() {
+    const name = document.getElementById('name').value
+    const birthd = document.getElementById('birthd').value
+    const address = document.getElementById('address').value
+    const salary = +document.getElementById('salary').value
+    const position = document.getElementById('position').value
+
+    const table = document.getElementById('danhsach')
+    const rowCount = table.rows.length
+
+    const newRow = table.insertRow(rowCount)
+    newRow.insertCell(0).innerHTML = rowCount
+    newRow.insertCell(1).innerHTML = name
+    newRow.insertCell(2).innerHTML = birthd
+    newRow.insertCell(3).innerHTML = address
+    newRow.insertCell(4).innerHTML = salary
+    newRow.insertCell(5).innerHTML = position
+
+    document.getElementById('name').value = ''
+    document.getElementById('birthd').value = ''
+    document.getElementById('address').value = ''
+    document.getElementById('salary').value = ''
+    document.getElementById('position').value = ''
+
+    sortlist()
+    function sortlist(){
+      const table = document.getElementById('danhsach')
+      const rows = Array.from(table.rows).slice(1)
+      rows.sort((rowA, rowB) => {
+        const nameA = rowA.cells[1].innerHTML.toLowerCase()
+        const nameB = rowB.cells[1].innerHTML.toLowerCase()
+        return nameA.localeCompare(nameB)
+      })
+      rows.forEach(row => table.appendChild(row))
+    }
+  }
+</script>
+
+</body>
+</html>
